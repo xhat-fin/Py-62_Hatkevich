@@ -1,0 +1,54 @@
+--Создайте таблицу "Employees" с указанными полями.
+CREATE TABLE Employees(
+	id INT PRIMARY KEY,
+	Name VARCHAR(50),
+	Position VARCHAR(50),
+	Department VARCHAR(50),
+	Salary DECIMAL(10, 2)
+);
+
+
+--Вставьте в таблицу несколько записей с информацией о
+--сотрудниках вашей компании
+INSERT INTO Employees (id, Name, Position, Department, Salary)
+Values (1, 'Nikita', 'Analyst', 'Leasing', 2000),
+	(2, 'Maria', 'Boss', 'Leasing', 6000),
+	(3, 'Eugen', 'SuperBoss', 'Leasing', 10000);
+
+--Измените данные в таблице для каких-то сотрудников
+update employees set salary = 3000 where id = 1;
+
+--Добавьте новое поле "HireDate" (дата приема на работу) в
+--таблицу "Employees"
+alter table employees add column hiredate date default null;
+
+
+--Добавьте записи о дате приема на работу для всех
+--сотрудников
+update employees set hiredate = '20-12-2021';
+update employees set hiredate = hiredate - integer '3600' where id = 2;
+update employees set hiredate = hiredate - integer '720' where id = 3;
+
+
+select * from employees;
+
+
+--Найдите всех сотрудников, чья должность "Manager" я заменил на БОСС
+select name, position from employees where lower(position) like '%boss%';
+
+--Найдите всех сотрудников, которые работают в отделе
+--"Sales" - заменил на аналитика :)
+select name from employees where lower(position) = 'analyst';
+
+
+--Найдите всех сотрудников, у которых зарплата больше
+--5000 долларов
+select * from employees e where salary > 5000;
+
+
+--Найдите среднюю зарплату по всем сотрудникам
+select ROUND(AVG(salary), 2) as "Средняя зарплата всех сотрудников" from employees;
+
+
+--Удалите таблицу "Employees"
+drop table employees;
