@@ -317,7 +317,3 @@ def get_transaction(date_1, date_2):
                                BankAccount.transaction_date
                                ).filter(between(BankAccount.transaction_date, date_1, date_2)).all()
         return transaction
-
-init_db()
-for i in get_orders_sale_by_client('ni'):
-    print(i)
